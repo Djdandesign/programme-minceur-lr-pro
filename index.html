@@ -3,210 +3,1227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programme Minceur LR - Pro</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Programme Minceur LR - Version Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #809478 0%, #f2e1c3 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #809478;
+            margin-bottom: 10px;
+        }
+        
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 50px auto;
+        }
+        
+        .login-container h2 {
+            color: #809478;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .btn {
+            background: #809478;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background: #6b7a5f;
+        }
+        
+        .btn-danger {
+            background: #f8592f;
+        }
+        
+        .btn-danger:hover {
+            background: #e04a2b;
+        }
+        
+        .btn-small {
+            width: auto;
+            padding: 8px 16px;
+            margin: 5px;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav button {
+            background: #809478;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .nav button:hover {
+            background: #6b7a5f;
+        }
+        
+        .nav button.active {
+            background: #f8592f;
+        }
+        
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .card h2 {
+            color: #809478;
+            margin-bottom: 15px;
+        }
+        
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            background: #f2e1c3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+        
+        .grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .routine-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #809478;
+        }
+        
+        .routine-section h3 {
+            color: #809478;
+            margin-bottom: 10px;
+        }
+        
+        .routine-item {
+            margin: 5px 0;
+            padding: 5px 0;
+        }
+        
+        .measurement-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #809478;
+        }
+        
+        .measurement-date {
+            font-weight: bold;
+            color: #809478;
+            margin-bottom: 10px;
+        }
+        
+        .measurement-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .measurement-value {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .text-center {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+        }
+        
+        .client-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #809478;
+            cursor: pointer;
+        }
+        
+        .client-card:hover {
+            background: #e9ecef;
+        }
+        
+        .client-actions {
+            margin-top: 10px;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal h3 {
+            color: #809478;
+            margin-bottom: 20px;
+        }
+        
+        .modal-buttons {
+            margin-top: 20px;
+            text-align: right;
+        }
+        
+        .modal-buttons button {
+            margin-left: 10px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #809478;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #809478;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #809478, #6b7a5f);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .chart-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #809478;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            color: #809478;
+            margin: 20px 0;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <!-- Page de connexion -->
-        <div id="loginPage" class="page">
-            <div class="login-container">
-                <div class="login-card">
-                    <div class="logo">
-                        <h1>Programme Minceur LR</h1>
-                        <p>Version Professionnelle</p>
+    <!-- Page de connexion -->
+    <div id="loginPage" class="container">
+        <div class="login-container">
+            <h2>Connexion</h2>
+            <form onsubmit="login(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Mot de passe</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn">Se connecter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application principale -->
+    <div id="mainApp" class="container hidden">
+        <div class="header">
+            <h1>Programme Minceur LR</h1>
+            <p>Version Professionnelle</p>
+            <div style="margin-top: 10px;">
+                <span id="userInfo"></span>
+                <button class="btn btn-danger btn-small" onclick="logout()">Déconnexion</button>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <button onclick="showPage('profile')" class="active">Mon Profil</button>
+            <button id="clientsBtn" onclick="showPage('clients')">Mes Clients</button>
+            <button id="measurementsBtn" onclick="showPage('measurements')">Mesures</button>
+            <button id="routineBtn" onclick="showPage('routine')">Routine</button>
+            <button id="trackingBtn" onclick="showPage('tracking')">Suivi</button>
+            <button id="diagnosticBtn" onclick="showPage('diagnostic')">Diagnostic</button>
+            <button id="productsBtn" onclick="showPage('products')">Produits</button>
+            <button id="adminBtn" onclick="showPage('admin')">Admin</button>
+        </div>
+        
+        <div id="profilePage" class="page">
+            <div class="card">
+                <h2>Mon Profil</h2>
+                <div class="profile-info">
+                    <div class="profile-picture">👤</div>
+                    <div>
+                        <h3 id="profileName">Test User</h3>
+                        <p id="profileEmail">test@test.com</p>
+                        <p id="profileType">Administrateur</p>
                     </div>
-                    
-                    <div class="login-tabs">
-                        <button class="tab-btn active" onclick="showLoginTab('login')">Connexion</button>
-                        <button class="tab-btn" onclick="showLoginTab('register')">Créer un compte</button>
-                    </div>
-                    
-                    <!-- Formulaire de connexion -->
-                    <div id="loginForm" class="form-container">
-                        <h2>Connexion</h2>
-                        <div class="form-group">
-                            <label for="loginEmail">Email</label>
-                            <input type="email" id="loginEmail" placeholder="votre@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="loginPassword">Mot de passe</label>
-                            <input type="password" id="loginPassword" placeholder="Votre mot de passe">
-                        </div>
-                        <button class="btn btn-primary" onclick="login()">Se connecter</button>
-                    </div>
-                    
-                    <!-- Formulaire d'inscription -->
-                    <div id="registerForm" class="form-container hidden">
-                        <h2>Créer un compte</h2>
-                        <div class="form-group">
-                            <label for="regFirstName">Prénom</label>
-                            <input type="text" id="regFirstName" placeholder="Votre prénom">
-                        </div>
-                        <div class="form-group">
-                            <label for="regLastName">Nom</label>
-                            <input type="text" id="regLastName" placeholder="Votre nom">
-                        </div>
-                        <div class="form-group">
-                            <label for="regEmail">Email</label>
-                            <input type="email" id="regEmail" placeholder="votre@email.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="regPassword">Mot de passe</label>
-                            <input type="password" id="regPassword" placeholder="Mot de passe sécurisé">
-                        </div>
-                        <div class="form-group">
-                            <label for="regUserType">Type de compte</label>
-                            <select id="regUserType">
-                                <option value="client">Client</option>
-                                <option value="partner">Partenaire LR</option>
-                                <option value="admin">Administrateur</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="regPartnerCode">Code Partenaire (si applicable)</label>
-                            <input type="text" id="regPartnerCode" placeholder="Code partenaire LR">
-                        </div>
-                        <button class="btn btn-primary" onclick="register()">Créer mon compte</button>
-                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-small" onclick="editProfile()">Modifier le profil</button>
+                    <button class="btn btn-danger btn-small" onclick="deleteAccount()">Supprimer le compte</button>
                 </div>
             </div>
         </div>
         
-        <!-- Application principale -->
-        <div id="mainApp" class="page hidden">
-            <!-- Navigation -->
-            <nav class="navbar">
-                <div class="nav-brand">
-                    <h2>Programme Minceur LR</h2>
+        <div id="clientsPage" class="page hidden">
+            <div class="card">
+                <h2>Mes Clients</h2>
+                <button class="btn btn-small" onclick="showAddClient()">+ Nouveau Client</button>
+                <div id="clientsList" style="margin-top: 20px;">
+                    <p class="text-center">Aucun client trouvé</p>
                 </div>
-                <div class="nav-buttons">
-                    <button class="btn" onclick="showPage('profile')">Mon Profil</button>
-                    <button class="btn" id="clientsBtn" onclick="showPage('clients')">Mes Clients</button>
-                    <button class="btn" id="measurementsBtn" onclick="showPage('measurements')">Mesures</button>
-                    <button class="btn" id="routineBtn" onclick="showPage('routine')">Routine</button>
-                    <button class="btn" id="trackingBtn" onclick="showPage('tracking')">Suivi</button>
-                    <button class="btn" id="diagnosticBtn" onclick="showPage('diagnostic')">Diagnostic</button>
-                    <button class="btn" id="productsBtn" onclick="showPage('products')">Produits</button>
-                    <button class="btn" id="adminBtn" onclick="showPage('admin')">Admin</button>
-                    <button class="btn btn-secondary" onclick="logout()">Déconnexion</button>
-                </div>
-            </nav>
-            
-            <!-- Contenu principal -->
-            <div class="container">
-                <!-- Page Profil -->
-                <div id="profilePage" class="page hidden">
-                    <div class="card">
-                        <h2>Mon Profil</h2>
-                        <div class="profile-content">
-                            <div class="profile-info">
-                                <div class="profile-picture">
-                                    <img id="profileImage" src="" alt="Photo de profil" style="display: none;">
-                                    <div id="profilePlaceholder">👤</div>
-                                </div>
-                                <div class="profile-details">
-                                    <h3 id="profileName">Nom Prénom</h3>
-                                    <p id="profileEmail">email@example.com</p>
-                                    <p id="profileType">Type de compte</p>
-                                </div>
-                            </div>
-                            <div class="profile-actions">
-                                <button class="btn" onclick="editProfile()">Modifier le profil</button>
-                                <button class="btn btn-danger" onclick="deleteAccount()">Supprimer le compte</button>
-                            </div>
+            </div>
+        </div>
+        
+        <div id="measurementsPage" class="page hidden">
+            <div class="card">
+                <h2>Mes Mesures</h2>
+                <div class="measurements-form">
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label for="height">Taille (cm)</label>
+                            <input type="number" id="height" placeholder="170">
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Poids (kg)</label>
+                            <input type="number" id="weight" step="0.1" placeholder="70">
+                        </div>
+                        <div class="form-group">
+                            <label for="waist">Tour de taille (cm)</label>
+                            <input type="number" id="waist" placeholder="80">
+                        </div>
+                        <div class="form-group">
+                            <label for="belly">Tour de ventre (cm)</label>
+                            <input type="number" id="belly" placeholder="85">
                         </div>
                     </div>
+                    <button class="btn btn-small" onclick="saveMeasurements()">Sauvegarder</button>
                 </div>
-                
-                <!-- Page Clients -->
-                <div id="clientsPage" class="page hidden">
-                    <div class="card">
-                        <div class="page-header">
-                            <h2>Mes Clients</h2>
-                            <button class="btn btn-primary" onclick="showAddClient()">+ Nouveau Client</button>
+                <div id="measurementsHistory">
+                    <h3>Historique des mesures</h3>
+                    <p class="text-center">Aucune mesure enregistrée</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="routinePage" class="page hidden">
+            <div class="card">
+                <h2>Ma Routine Quotidienne</h2>
+                <div class="routine-section">
+                    <h3>🌅 Matin</h3>
+                    <div class="routine-item">Freedom - 2 capsules à jeun</div>
+                    <div class="routine-item">Colostrum - 1 capsule à jeun</div>
+                </div>
+                <div class="routine-section">
+                    <h3>🍽️ Midi</h3>
+                    <div class="routine-item">Déjeuner équilibré</div>
+                </div>
+                <div class="routine-section">
+                    <h3>🌙 Soir</h3>
+                    <div class="routine-item">Reishi Plus - 1 capsule</div>
+                </div>
+                <div class="routine-section">
+                    <h3>��‍♀️ Sport</h3>
+                    <div class="routine-item">Recommandé vers 10h00-11h00</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="trackingPage" class="page hidden">
+            <div class="card">
+                <h2>Suivi Quotidien</h2>
+                <div class="tracking-form">
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label for="trackingDate">Date</label>
+                            <input type="date" id="trackingDate">
                         </div>
-                        <div id="clientsList">
-                            <!-- Liste des clients -->
+                        <div class="form-group">
+                            <label for="trackingWeight">Poids (kg)</label>
+                            <input type="number" id="trackingWeight" step="0.1" placeholder="70.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="trackingEnergy">Énergie (1-5)</label>
+                            <input type="number" id="trackingEnergy" min="1" max="5" placeholder="4">
+                        </div>
+                        <div class="form-group">
+                            <label for="trackingMood">Humeur (1-5)</label>
+                            <input type="number" id="trackingMood" min="1" max="5" placeholder="4">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="trackingNotes">Notes</label>
+                        <textarea id="trackingNotes" placeholder="Commentaires sur votre journée..."></textarea>
+                    </div>
+                    <button class="btn btn-small" onclick="saveTrackingEntry()">Enregistrer</button>
                 </div>
-                
-                <!-- Page Mesures -->
-                <div id="measurementsPage" class="page hidden">
-                    <div class="card">
-                        <h2>Mes Mesures</h2>
-                        <div id="measurementsContent">
-                            <!-- Contenu des mesures -->
-                        </div>
+                <div class="chart-placeholder">
+                    <h3>📊 Graphique de Progression</h3>
+                    <p>Visualisation des données de suivi</p>
+                    <div id="progressDisplay">
+                        <p>Aucune donnée de suivi</p>
                     </div>
                 </div>
-                
-                <!-- Page Routine -->
-                <div id="routinePage" class="page hidden">
-                    <div class="card">
-                        <h2>Ma Routine Quotidienne</h2>
-                        <div id="routineContent">
-                            <!-- Contenu de la routine -->
-                        </div>
-                    </div>
+                <div id="trackingHistory">
+                    <h3>Historique du suivi</h3>
+                    <p class="text-center">Aucune entrée de suivi</p>
                 </div>
-                
-                <!-- Page Suivi -->
-                <div id="trackingPage" class="page hidden">
-                    <div class="card">
-                        <h2>Suivi Quotidien</h2>
-                        <div id="trackingContent">
-                            <!-- Contenu du suivi -->
-                        </div>
+            </div>
+        </div>
+        
+        <div id="diagnosticPage" class="page hidden">
+            <div class="card">
+                <h2>Diagnostic Personnalisé</h2>
+                <p>Fonctionnalité de diagnostic en cours de développement...</p>
+            </div>
+        </div>
+        
+        <div id="productsPage" class="page hidden">
+            <div class="card">
+                <h2>Produits LR</h2>
+                <p>Fonctionnalité des produits en cours de développement...</p>
+            </div>
+        </div>
+        
+        <div id="adminPage" class="page hidden">
+            <div class="card">
+                <h2>Administration</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalClients">0</div>
+                        <div class="stat-label">Clients</div>
                     </div>
-                </div>
-                
-                <!-- Page Diagnostic -->
-                <div id="diagnosticPage" class="page hidden">
-                    <div class="card">
-                        <h2>Diagnostic Personnalisé</h2>
-                        <div id="diagnosticContent">
-                            <!-- Contenu du diagnostic -->
-                        </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalPartners">0</div>
+                        <div class="stat-label">Partenaires</div>
                     </div>
-                </div>
-                
-                <!-- Page Produits -->
-                <div id="productsPage" class="page hidden">
-                    <div class="card">
-                        <h2>Produits LR</h2>
-                        <div id="productsContent">
-                            <!-- Contenu des produits -->
-                        </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalMeasurements">0</div>
+                        <div class="stat-label">Mesures</div>
                     </div>
-                </div>
-                
-                <!-- Page Admin -->
-                <div id="adminPage" class="page hidden">
-                    <div class="card">
-                        <h2>Administration</h2>
-                        <div id="adminContent">
-                            <!-- Contenu admin -->
-                        </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalEntries">0</div>
+                        <div class="stat-label">Entrées de suivi</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Modals -->
+
+    <!-- Modal pour créer un client/partenaire -->
     <div id="modal" class="modal hidden">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h3 id="modalTitle"></h3>
-            <p id="modalMessage"></p>
-            <div id="modalButtons"></div>
+            <h3 id="modalTitle">Nouveau Client/Partenaire</h3>
+            <div id="modalBody">
+                <!-- Contenu dynamique -->
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-small" onclick="closeModal()">Annuler</button>
+                <button class="btn btn-small" onclick="saveClient()">Sauvegarder</button>
+            </div>
         </div>
     </div>
-    
-    <script src="app.js"></script>
+
+    <script>
+        // Base de données simulée
+        let users = [
+            {
+                id: 'admin-1',
+                email: 'teamdanlr@gmail.com',
+                password: 'admin123',
+                firstName: 'Christophe',
+                lastName: 'Daniaux',
+                type: 'admin',
+                createdBy: null
+            }
+        ];
+        
+        let clients = [];
+        let currentUser = null;
+        let measurements = [];
+        let trackingEntries = [];
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Définir la date d'aujourd'hui
+                const today = new Date().toISOString().split('T')[0];
+                const dateInput = document.getElementById('trackingDate');
+                if (dateInput) {
+                    dateInput.value = today;
+                }
+                
+                // Charger les données sauvegardées
+                loadData();
+                
+                // Vérifier si l'utilisateur est déjà connecté
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    showMainApp();
+                } else {
+                    showLoginPage();
+                }
+            } catch (error) {
+                console.error('Erreur lors de l\'initialisation:', error);
+                showError('Erreur lors du chargement de l\'application');
+            }
+        });
+        
+        // Afficher une erreur
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            document.body.insertBefore(errorDiv, document.body.firstChild);
+        }
+        
+        // Afficher un succès
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.textContent = message;
+            document.body.insertBefore(successDiv, document.body.firstChild);
+            
+            // Supprimer le message après 3 secondes
+            setTimeout(() => {
+                if (successDiv.parentNode) {
+                    successDiv.parentNode.removeChild(successDiv);
+                }
+            }, 3000);
+        }
+        
+        // Connexion
+        function login(event) {
+            event.preventDefault();
+            
+            try {
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    showMainApp();
+                    showSuccess('Connexion réussie !');
+                } else {
+                    showError('Email ou mot de passe incorrect');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la connexion:', error);
+                showError('Erreur lors de la connexion');
+            }
+        }
+        
+        // Déconnexion
+        function logout() {
+            try {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                showLoginPage();
+                showSuccess('Déconnexion réussie');
+            } catch (error) {
+                console.error('Erreur lors de la déconnexion:', error);
+                showError('Erreur lors de la déconnexion');
+            }
+        }
+        
+        // Afficher la page de connexion
+        function showLoginPage() {
+            try {
+                document.getElementById('loginPage').classList.remove('hidden');
+                document.getElementById('mainApp').classList.add('hidden');
+            } catch (error) {
+                console.error('Erreur lors de l\'affichage de la page de connexion:', error);
+            }
+        }
+        
+        // Afficher l'application principale
+        function showMainApp() {
+            try {
+                document.getElementById('loginPage').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                
+                // Mettre à jour les informations utilisateur
+                const profileName = document.getElementById('profileName');
+                const profileEmail = document.getElementById('profileEmail');
+                const profileType = document.getElementById('profileType');
+                const userInfo = document.getElementById('userInfo');
+                
+                if (profileName) profileName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                if (profileEmail) profileEmail.textContent = currentUser.email;
+                if (profileType) profileType.textContent = getTypeLabel(currentUser.type);
+                if (userInfo) userInfo.textContent = `${currentUser.firstName} ${currentUser.lastName} (${getTypeLabel(currentUser.type)})`;
+                
+                // Mettre à jour la navigation selon le type d'utilisateur
+                updateNavigation();
+                
+                showPage('profile');
+            } catch (error) {
+                console.error('Erreur lors de l\'affichage de l\'application principale:', error);
+                showError('Erreur lors du chargement de l\'application');
+            }
+        }
+        
+        // Mettre à jour la navigation
+        function updateNavigation() {
+            try {
+                const buttons = ['clientsBtn', 'measurementsBtn', 'routineBtn', 'trackingBtn', 'diagnosticBtn', 'productsBtn', 'adminBtn'];
+                
+                buttons.forEach(btnId => {
+                    const btn = document.getElementById(btnId);
+                    if (btn) btn.style.display = 'none';
+                });
+                
+                if (currentUser.type === 'client') {
+                    const measurementsBtn = document.getElementById('measurementsBtn');
+                    const routineBtn = document.getElementById('routineBtn');
+                    const trackingBtn = document.getElementById('trackingBtn');
+                    if (measurementsBtn) measurementsBtn.style.display = 'inline-block';
+                    if (routineBtn) routineBtn.style.display = 'inline-block';
+                    if (trackingBtn) trackingBtn.style.display = 'inline-block';
+                } else if (currentUser.type === 'partner') {
+                    buttons.forEach(btnId => {
+                        if (btnId !== 'adminBtn') {
+                            const btn = document.getElementById(btnId);
+                            if (btn) btn.style.display = 'inline-block';
+                        }
+                    });
+                } else if (currentUser.type === 'admin') {
+                    buttons.forEach(btnId => {
+                        const btn = document.getElementById(btnId);
+                        if (btn) btn.style.display = 'inline-block';
+                    });
+                }
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour de la navigation:', error);
+            }
+        }
+        
+        // Obtenir le libellé du type d'utilisateur
+        function getTypeLabel(userType) {
+            const labels = {
+                'client': 'Client',
+                'partner': 'Partenaire LR',
+                'admin': 'Administrateur'
+            };
+            return labels[userType] || 'Utilisateur';
+        }
+        
+        // Afficher une page
+        function showPage(pageName) {
+            try {
+                // Masquer toutes les pages
+                const pages = document.querySelectorAll('.page');
+                pages.forEach(page => page.classList.add('hidden'));
+                
+                // Afficher la page demandée
+                const targetPage = document.getElementById(pageName + 'Page');
+                if (targetPage) {
+                    targetPage.classList.remove('hidden');
+                }
+                
+                // Mettre à jour les boutons de navigation
+                const buttons = document.querySelectorAll('.nav button');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                
+                // Trouver le bouton correspondant et l'activer
+                const activeButton = Array.from(buttons).find(btn => 
+                    btn.textContent.includes(pageName.charAt(0).toUpperCase() + pageName.slice(1)) ||
+                    btn.id === pageName + 'Btn'
+                );
+                if (activeButton) {
+                    activeButton.classList.add('active');
+                }
+                
+                // Charger le contenu de la page
+                if (pageName === 'clients') {
+                    loadClientsPage();
+                } else if (pageName === 'admin') {
+                    loadAdminPage();
+                } else if (pageName === 'tracking') {
+                    loadTrackingPage();
+                }
+            } catch (error) {
+                console.error('Erreur lors de l\'affichage de la page:', error);
+                showError('Erreur lors du chargement de la page');
+            }
+        }
+        
+        // Charger la page clients
+        function loadClientsPage() {
+            try {
+                const clientsList = document.getElementById('clientsList');
+                if (!clientsList) return;
+                
+                if (clients.length === 0) {
+                    clientsList.innerHTML = '<p class="text-center">Aucun client trouvé</p>';
+                    return;
+                }
+                
+                clientsList.innerHTML = clients.map(client => `
+                    <div class="client-card" onclick="viewClient('${client.id}')">
+                        <h3>${client.firstName} ${client.lastName}</h3>
+                        <p>${client.email}</p>
+                        <p>Type: ${getTypeLabel(client.type)}</p>
+                        <p>Créé le: ${new Date(client.createdAt).toLocaleDateString('fr-FR')}</p>
+                        <div class="client-actions">
+                            <button class="btn btn-small" onclick="editClient('${client.id}')">Modifier</button>
+                            <button class="btn btn-danger btn-small" onclick="deleteClient('${client.id}')">Supprimer</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Erreur lors du chargement de la page clients:', error);
+            }
+        }
+        
+        // Charger la page admin
+        function loadAdminPage() {
+            try {
+                const totalClients = clients.filter(c => c.type === 'client').length;
+                const totalPartners = clients.filter(c => c.type === 'partner').length;
+                const totalMeasurements = measurements.length;
+                const totalEntries = trackingEntries.length;
+                
+                const totalClientsEl = document.getElementById('totalClients');
+                const totalPartnersEl = document.getElementById('totalPartners');
+                const totalMeasurementsEl = document.getElementById('totalMeasurements');
+                const totalEntriesEl = document.getElementById('totalEntries');
+                
+                if (totalClientsEl) totalClientsEl.textContent = totalClients;
+                if (totalPartnersEl) totalPartnersEl.textContent = totalPartners;
+                if (totalMeasurementsEl) totalMeasurementsEl.textContent = totalMeasurements;
+                if (totalEntriesEl) totalEntriesEl.textContent = totalEntries;
+            } catch (error) {
+                console.error('Erreur lors du chargement de la page admin:', error);
+            }
+        }
+        
+        // Charger la page de suivi
+        function loadTrackingPage() {
+            try {
+                const userEntries = trackingEntries.filter(e => e.userId === currentUser.id);
+                const progressDisplay = document.getElementById('progressDisplay');
+                
+                if (!progressDisplay) return;
+                
+                if (userEntries.length === 0) {
+                    progressDisplay.innerHTML = '<p>Aucune donnée de suivi</p>';
+                    return;
+                }
+                
+                // Créer une visualisation simple des progrès
+                const weights = userEntries.map(entry => entry.weight);
+                const minWeight = Math.min(...weights);
+                const maxWeight = Math.max(...weights);
+                const currentWeight = weights[weights.length - 1];
+                const progress = ((maxWeight - currentWeight) / (maxWeight - minWeight)) * 100;
+                
+                progressDisplay.innerHTML = `
+                    <div style="margin: 20px 0;">
+                        <h4>Progression du poids</h4>
+                        <p>Poids actuel: <strong>${currentWeight} kg</strong></p>
+                        <p>Poids minimum: <strong>${minWeight} kg</strong></p>
+                        <p>Poids maximum: <strong>${maxWeight} kg</strong></p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                        <p style="margin-top: 10px; font-size: 12px; color: #666;">
+                            Progression: ${progress.toFixed(1)}% vers l'objectif
+                        </p>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Erreur lors du chargement de la page de suivi:', error);
+            }
+        }
+        
+        // Afficher le modal pour créer un client/partenaire
+        function showAddClient() {
+            try {
+                const modalTitle = document.getElementById('modalTitle');
+                const modalBody = document.getElementById('modalBody');
+                const modal = document.getElementById('modal');
+                
+                if (modalTitle) modalTitle.textContent = 'Nouveau Client/Partenaire';
+                if (modalBody) {
+                    modalBody.innerHTML = `
+                        <div class="form-group">
+                            <label for="clientFirstName">Prénom</label>
+                            <input type="text" id="clientFirstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientLastName">Nom</label>
+                            <input type="text" id="clientLastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientEmail">Email</label>
+                            <input type="email" id="clientEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientPassword">Mot de passe</label>
+                            <input type="password" id="clientPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientType">Type</label>
+                            <select id="clientType" onchange="updateClientType()">
+                                <option value="client">Client</option>
+                                <option value="partner">Partenaire LR</option>
+                                ${currentUser.type === 'admin' ? '<option value="admin">Administrateur</option>' : ''}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="clientPartnerCode">Code Partenaire (si applicable)</label>
+                            <input type="text" id="clientPartnerCode">
+                        </div>
+                    `;
+                }
+                if (modal) modal.classList.remove('hidden');
+            } catch (error) {
+                console.error('Erreur lors de l\'affichage du modal:', error);
+            }
+        }
+        
+        // Mettre à jour le type de client
+        function updateClientType() {
+            try {
+                const type = document.getElementById('clientType').value;
+                const partnerCodeField = document.getElementById('clientPartnerCode');
+                
+                if (partnerCodeField) {
+                    if (type === 'partner' || type === 'admin') {
+                        partnerCodeField.style.display = 'block';
+                    } else {
+                        partnerCodeField.style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.error('Erreur lors de la mise à jour du type de client:', error);
+            }
+        }
+        
+        // Sauvegarder un client/partenaire
+        function saveClient() {
+            try {
+                const firstName = document.getElementById('clientFirstName').value;
+                const lastName = document.getElementById('clientLastName').value;
+                const email = document.getElementById('clientEmail').value;
+                const password = document.getElementById('clientPassword').value;
+                const type = document.getElementById('clientType').value;
+                const partnerCode = document.getElementById('clientPartnerCode').value;
+                
+                if (!firstName || !lastName || !email || !password) {
+                    showError('Veuillez remplir tous les champs obligatoires');
+                    return;
+                }
+                
+                // Vérifier si l'email existe déjà
+                if (users.find(u => u.email === email)) {
+                    showError('Cet email est déjà utilisé');
+                    return;
+                }
+                
+                const newUser = {
+                    id: 'user-' + Date.now(),
+                    email: email,
+                    password: password,
+                    firstName: firstName,
+                    lastName: lastName,
+                    type: type,
+                    createdBy: currentUser.id,
+                    createdAt: new Date().toISOString(),
+                    partnerCode: partnerCode || null
+                };
+                
+                users.push(newUser);
+                clients.push(newUser);
+                
+                saveData();
+                loadClientsPage();
+                closeModal();
+                
+                showSuccess('Client/Partenaire créé avec succès !');
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde du client:', error);
+                showError('Erreur lors de la création du client');
+            }
+        }
+        
+        // Fermer le modal
+        function closeModal() {
+            try {
+                const modal = document.getElementById('modal');
+                if (modal) modal.classList.add('hidden');
+            } catch (error) {
+                console.error('Erreur lors de la fermeture du modal:', error);
+            }
+        }
+        
+        // Voir un client
+        function viewClient(clientId) {
+            try {
+                const client = clients.find(c => c.id === clientId);
+                if (client) {
+                    alert(`Client: ${client.firstName} ${client.lastName}\nEmail: ${client.email}\nType: ${getTypeLabel(client.type)}`);
+                }
+            } catch (error) {
+                console.error('Erreur lors de la visualisation du client:', error);
+            }
+        }
+        
+        // Modifier un client
+        function editClient(clientId) {
+            alert('Fonctionnalité en cours de développement...');
+        }
+        
+        // Supprimer un client
+        function deleteClient(clientId) {
+            try {
+                if (confirm('Êtes-vous sûr de vouloir supprimer ce client ?')) {
+                    clients = clients.filter(c => c.id !== clientId);
+                    users = users.filter(u => u.id !== clientId);
+                    saveData();
+                    loadClientsPage();
+                    showSuccess('Client supprimé avec succès !');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la suppression du client:', error);
+                showError('Erreur lors de la suppression du client');
+            }
+        }
+        
+        // Sauvegarder les mesures
+        function saveMeasurements() {
+            try {
+                const measurement = {
+                    height: parseFloat(document.getElementById('height').value) || 0,
+                    weight: parseFloat(document.getElementById('weight').value) || 0,
+                    waist: parseFloat(document.getElementById('waist').value) || 0,
+                    belly: parseFloat(document.getElementById('belly').value) || 0,
+                    date: new Date().toLocaleDateString('fr-FR'),
+                    userId: currentUser.id
+                };
+                
+                measurements.push(measurement);
+                saveData();
+                loadMeasurementsHistory();
+                
+                showSuccess('Mesures sauvegardées avec succès !');
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde des mesures:', error);
+                showError('Erreur lors de la sauvegarde des mesures');
+            }
+        }
+        
+        // Charger l'historique des mesures
+        function loadMeasurementsHistory() {
+            try {
+                const historyDiv = document.getElementById('measurementsHistory');
+                if (!historyDiv) return;
+                
+                const userMeasurements = measurements.filter(m => m.userId === currentUser.id);
+                
+                if (userMeasurements.length === 0) {
+                    historyDiv.innerHTML = '<h3>Historique des mesures</h3><p class="text-center">Aucune mesure enregistrée</p>';
+                    return;
+                }
+                
+                historyDiv.innerHTML = `
+                    <h3>Historique des mesures</h3>
+                    ${userMeasurements.map(measurement => `
+                        <div class="measurement-card">
+                            <div class="measurement-date">${measurement.date}</div>
+                            <div class="measurement-values">
+                                <div class="measurement-value">
+                                    <span>Taille:</span>
+                                    <span>${measurement.height} cm</span>
+                                </div>
+                                <div class="measurement-value">
+                                    <span>Poids:</span>
+                                    <span>${measurement.weight} kg</span>
+                                </div>
+                                <div class="measurement-value">
+                                    <span>Tour de taille:</span>
+                                    <span>${measurement.waist} cm</span>
+                                </div>
+                                <div class="measurement-value">
+                                    <span>Tour de ventre:</span>
+                                    <span>${measurement.belly} cm</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                `;
+            } catch (error) {
+                console.error('Erreur lors du chargement de l\'historique des mesures:', error);
+            }
+        }
+        
+        // Sauvegarder une entrée de suivi
+        function saveTrackingEntry() {
+            try {
+                const entry = {
+                    date: document.getElementById('trackingDate').value,
+                    weight: parseFloat(document.getElementById('trackingWeight').value) || 0,
+                    energy: parseInt(document.getElementById('trackingEnergy').value) || 0,
+                    mood: parseInt(document.getElementById('trackingMood').value) || 0,
+                    notes: document.getElementById('trackingNotes').value,
+                    userId: currentUser.id
+                };
+                
+                trackingEntries.push(entry);
+                saveData();
+                loadTrackingHistory();
+                loadTrackingPage();
+                
+                showSuccess('Entrée de suivi sauvegardée !');
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde de l\'entrée de suivi:', error);
+                showError('Erreur lors de la sauvegarde de l\'entrée de suivi');
+            }
+        }
+        
+        // Charger l'historique du suivi
+        function loadTrackingHistory() {
+            try {
+                const historyDiv = document.getElementById('trackingHistory');
+                if (!historyDiv) return;
+                
+                const userEntries = trackingEntries.filter(e => e.userId === currentUser.id);
+                
+                if (userEntries.length === 0) {
+                    historyDiv.innerHTML = '<h3>Historique du suivi</h3><p class="text-center">Aucune entrée de suivi</p>';
+                    return;
+                }
+                
+                historyDiv.innerHTML = `
+                    <h3>Historique du suivi</h3>
+                    ${userEntries.map(entry => `
+                        <div class="measurement-card">
+                            <div class="measurement-date">${new Date(entry.date).toLocaleDateString('fr-FR')}</div>
+                            <div class="measurement-values">
+                                <div class="measurement-value">
+                                    <span>Poids:</span>
+                                    <span>${entry.weight} kg</span>
+                                </div>
+                                <div class="measurement-value">
+                                    <span>Énergie:</span>
+                                    <span>${entry.energy}/5</span>
+                                </div>
+                                <div class="measurement-value">
+                                    <span>Humeur:</span>
+                                    <span>${entry.mood}/5</span>
+                                </div>
+                            </div>
+                            ${entry.notes ? `<div style="margin-top: 10px; font-style: italic;">${entry.notes}</div>` : ''}
+                        </div>
+                    `).join('')}
+                `;
+            } catch (error) {
+                console.error('Erreur lors du chargement de l\'historique du suivi:', error);
+            }
+        }
+        
+        // Sauvegarder les données
+        function saveData() {
+            try {
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('clients', JSON.stringify(clients));
+                localStorage.setItem('measurements', JSON.stringify(measurements));
+                localStorage.setItem('trackingEntries', JSON.stringify(trackingEntries));
+            } catch (error) {
+                console.error('Erreur lors de la sauvegarde des données:', error);
+            }
+        }
+        
+        // Charger les données
+        function loadData() {
+            try {
+                const savedUsers = localStorage.getItem('users');
+                const savedClients = localStorage.getItem('clients');
+                const savedMeasurements = localStorage.getItem('measurements');
+                const savedTrackingEntries = localStorage.getItem('trackingEntries');
+                
+                if (savedUsers) {
+                    users = JSON.parse(savedUsers);
+                }
+                
+                if (savedClients) {
+                    clients = JSON.parse(savedClients);
+                }
+                
+                if (savedMeasurements) {
+                    measurements = JSON.parse(savedMeasurements);
+                    loadMeasurementsHistory();
+                }
+                
+                if (savedTrackingEntries) {
+                    trackingEntries = JSON.parse(savedTrackingEntries);
+                    loadTrackingHistory();
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des données:', error);
+            }
+        }
+        
+        // Fonctions utilitaires
+        function editProfile() {
+            alert('Fonctionnalité en cours de développement...');
+        }
+        
+        function deleteAccount() {
+            try {
+                if (confirm('Êtes-vous sûr de vouloir supprimer votre compte ?')) {
+                    showSuccess('Compte supprimé avec succès.');
+                    logout();
+                }
+            } catch (error) {
+                console.error('Erreur lors de la suppression du compte:', error);
+                showError('Erreur lors de la suppression du compte');
+            }
+        }
+    </script>
 </body>
 </html>
