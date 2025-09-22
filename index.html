@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme Minceur LR - Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Page de connexion -->
+        <div id="loginPage" class="page">
+            <div class="login-container">
+                <div class="login-card">
+                    <div class="logo">
+                        <h1>Programme Minceur LR</h1>
+                        <p>Version Professionnelle</p>
+                    </div>
+                    
+                    <div class="login-tabs">
+                        <button class="tab-btn active" onclick="showLoginTab('login')">Connexion</button>
+                        <button class="tab-btn" onclick="showLoginTab('register')">Créer un compte</button>
+                    </div>
+                    
+                    <!-- Formulaire de connexion -->
+                    <div id="loginForm" class="form-container">
+                        <h2>Connexion</h2>
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" placeholder="votre@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Mot de passe</label>
+                            <input type="password" id="loginPassword" placeholder="Votre mot de passe">
+                        </div>
+                        <button class="btn btn-primary" onclick="login()">Se connecter</button>
+                    </div>
+                    
+                    <!-- Formulaire d'inscription -->
+                    <div id="registerForm" class="form-container hidden">
+                        <h2>Créer un compte</h2>
+                        <div class="form-group">
+                            <label for="regFirstName">Prénom</label>
+                            <input type="text" id="regFirstName" placeholder="Votre prénom">
+                        </div>
+                        <div class="form-group">
+                            <label for="regLastName">Nom</label>
+                            <input type="text" id="regLastName" placeholder="Votre nom">
+                        </div>
+                        <div class="form-group">
+                            <label for="regEmail">Email</label>
+                            <input type="email" id="regEmail" placeholder="votre@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="regPassword">Mot de passe</label>
+                            <input type="password" id="regPassword" placeholder="Mot de passe sécurisé">
+                        </div>
+                        <div class="form-group">
+                            <label for="regUserType">Type de compte</label>
+                            <select id="regUserType">
+                                <option value="client">Client</option>
+                                <option value="partner">Partenaire LR</option>
+                                <option value="admin">Administrateur</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="regPartnerCode">Code Partenaire (si applicable)</label>
+                            <input type="text" id="regPartnerCode" placeholder="Code partenaire LR">
+                        </div>
+                        <button class="btn btn-primary" onclick="register()">Créer mon compte</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Application principale -->
+        <div id="mainApp" class="page hidden">
+            <!-- Navigation -->
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <h2>Programme Minceur LR</h2>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn" onclick="showPage('profile')">Mon Profil</button>
+                    <button class="btn" id="clientsBtn" onclick="showPage('clients')">Mes Clients</button>
+                    <button class="btn" id="measurementsBtn" onclick="showPage('measurements')">Mesures</button>
+                    <button class="btn" id="routineBtn" onclick="showPage('routine')">Routine</button>
+                    <button class="btn" id="trackingBtn" onclick="showPage('tracking')">Suivi</button>
+                    <button class="btn" id="diagnosticBtn" onclick="showPage('diagnostic')">Diagnostic</button>
+                    <button class="btn" id="productsBtn" onclick="showPage('products')">Produits</button>
+                    <button class="btn" id="adminBtn" onclick="showPage('admin')">Admin</button>
+                    <button class="btn btn-secondary" onclick="logout()">Déconnexion</button>
+                </div>
+            </nav>
+            
+            <!-- Contenu principal -->
+            <div class="container">
+                <!-- Page Profil -->
+                <div id="profilePage" class="page hidden">
+                    <div class="card">
+                        <h2>Mon Profil</h2>
+                        <div class="profile-content">
+                            <div class="profile-info">
+                                <div class="profile-picture">
+                                    <img id="profileImage" src="" alt="Photo de profil" style="display: none;">
+                                    <div id="profilePlaceholder">👤</div>
+                                </div>
+                                <div class="profile-details">
+                                    <h3 id="profileName">Nom Prénom</h3>
+                                    <p id="profileEmail">email@example.com</p>
+                                    <p id="profileType">Type de compte</p>
+                                </div>
+                            </div>
+                            <div class="profile-actions">
+                                <button class="btn" onclick="editProfile()">Modifier le profil</button>
+                                <button class="btn btn-danger" onclick="deleteAccount()">Supprimer le compte</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page Clients -->
+                <div id="clientsPage" class="page hidden">
+                    <div class="card">
+                        <div class="page-header">
+                            <h2>Mes Clients</h2>
+                            <button class="btn btn-primary" onclick="showAddClient()">+ Nouveau Client</button>
+                        </div>
+                        <div id="clientsList">
+                            <!-- Liste des clients -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page Mesures -->
+                <div id="measurementsPage" class="page hidden">
+                    <div class="card">
+                        <h2>Mes Mesures</h2>
+                        <div id="measurementsContent">
+                            <!-- Contenu des mesures -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page Routine -->
+                <div id="routinePage" class="page hidden">
+                    <div class="card">
+                        <h2>Ma Routine Quotidienne</h2>
+                        <div id="routineContent">
+                            <!-- Contenu de la routine -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page Suivi -->
+                <div id="trackingPage" class="page hidden">
+                    <div class="card">
+                        <h2>Suivi Quotidien</h2>
+                        <div id="trackingContent">
+                            <!-- Contenu du suivi -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page Diagnostic -->
+                <div id="diagnosticPage" class="page hidden">
+                    <div class="card">
+                        <h2>Diagnostic Personnalisé</h2>
+                        <div id="diagnosticContent">
+                            <!-- Contenu du diagnostic -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page Produits -->
+                <div id="productsPage" class="page hidden">
+                    <div class="card">
+                        <h2>Produits LR</h2>
+                        <div id="productsContent">
+                            <!-- Contenu des produits -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page Admin -->
+                <div id="adminPage" class="page hidden">
+                    <div class="card">
+                        <h2>Administration</h2>
+                        <div id="adminContent">
+                            <!-- Contenu admin -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle"></h3>
+            <p id="modalMessage"></p>
+            <div id="modalButtons"></div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
